@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Plain-text .http/YAML request collections with environments, chaining and assertions, runnable from the terminal and CI, with a Postman collection importer. For people who want a minimal Postman alternative that lives in git."
 requires-python = ">=3.11"
 license = { text = "MIT" }
-dependencies = []
+dependencies = ["click", "requests", "pyyaml"]
 
 [project.optional-dependencies]
 dev = [
