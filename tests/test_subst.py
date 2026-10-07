@@ -14,8 +14,13 @@ def test_substitute_whitespace():
     assert substitute("{{ name }}", {"name": "x"}) == "x"
 
 
-def test_substitute_unknown_left_unchanged():
-    assert substitute("{{missing}}", {}) == "{{missing}}"
+def test_substitute_unknown_raises():
+    try:
+        substitute("{{missing}}", {})
+    except KeyError as e:
+        assert e.args[0] == "missing"
+    else:
+        raise AssertionError("Expected KeyError")
 
 
 def test_substitute_non_string_value():
