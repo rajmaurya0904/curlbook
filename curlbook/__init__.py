@@ -5,4 +5,4 @@ runnable from the terminal and CI, with a Postman collection importer. For peopl
 want a minimal Postman alternative that lives in git.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
