@@ -63,7 +63,13 @@ TODO.
 
 ## FAQ
 
-TODO.
+**Q:** How do I use variables in my request files?
+
+**A:** Use `{{ VAR_NAME }}` placeholders which will be replaced by values from the environment file provided with `--env`.
+
+**Q:** Can I chain requests and use responses from earlier requests?
+
+**A:** Yes, use the `{{ previous.response.json.key }}` syntax to reference fields from the previous response.
 
 ## License
 
