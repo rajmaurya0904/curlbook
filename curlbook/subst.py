@@ -14,6 +14,7 @@ Anything else between double braces is left alone, so JSON such as
 
 from __future__ import annotations
 
+import json
 import os
 import random
 import re
@@ -37,6 +38,15 @@ DYNAMIC = {
 }
 
 
+def render_value(value: Any) -> str:
+    """Text form of a variable: JSON spelling for booleans, null, lists and objects."""
+    if isinstance(value, str):
+        return value
+    if isinstance(value, (bool, list, dict)) or value is None:
+        return json.dumps(value, ensure_ascii=False)
+    return str(value)
+
+
 def _resolve(name: str, env: dict[str, Any]) -> str:
     if name.startswith("$env."):
         key = name[5:]
@@ -48,7 +58,7 @@ def _resolve(name: str, env: dict[str, Any]) -> str:
             return DYNAMIC[name]()
         raise KeyError(name)
     if name in env:
-        return str(env[name])
+        return render_value(env[name])
     raise KeyError(name)
 
 

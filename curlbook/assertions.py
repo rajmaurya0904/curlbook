@@ -82,7 +82,7 @@ def _parse_expected(raw: str) -> Any:
         return raw
 
 
-def _take_subject(s: str, original: str) -> tuple[str, str | None, str]:
+def take_subject(s: str, original: str) -> tuple[str, str | None, str]:
     """Parse a subject at the start of *s*; return ``(subject, arg, remainder)``."""
     s = s.strip()
     if s.startswith("$"):
@@ -123,12 +123,12 @@ def parse_assertion(text: str) -> Assertion:
     lm = re.match(r"len\(\s*(.*?)\s*\)\s*(.*)$", src, re.S)
     if lm:
         length = True
-        subject, arg, leftover = _take_subject(lm.group(1), text)
+        subject, arg, leftover = take_subject(lm.group(1), text)
         if leftover.strip():
             raise ParseError(f"bad assertion {text!r}: unexpected {leftover.strip()!r} in len()")
         rest = lm.group(2)
     else:
-        subject, arg, rest = _take_subject(src, text)
+        subject, arg, rest = take_subject(src, text)
 
     op, expected_raw = _take_operator(rest, text)
     if op in ("exists", "!exists"):

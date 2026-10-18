@@ -62,3 +62,9 @@ def test_substitute_all_walks_nested_structures():
         "key": ["val", {"n": 1, "s": "xval"}],
         "plain": 3,
     }
+
+
+def test_non_string_values_render_as_json():
+    env = {"t": True, "f": False, "n": None, "l": [1, "a"], "o": {"k": 1}, "i": 3, "x": 1.5}
+    text = "{{t}} {{f}} {{n}} {{l}} {{o}} {{i}} {{x}}"
+    assert substitute(text, env) == 'true false null [1, "a"] {"k": 1} 3 1.5'
