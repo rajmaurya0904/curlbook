@@ -82,7 +82,9 @@ def _parse_expected(raw: str) -> Any:
         return raw
 
 
-def take_subject(s: str, original: str) -> tuple[str, str | None, str]:
+def take_subject(
+    s: str, original: str, kind: str = "assertion"
+) -> tuple[str, str | None, str]:
     """Parse a subject at the start of *s*; return ``(subject, arg, remainder)``."""
     s = s.strip()
     if s.startswith("$"):
@@ -96,7 +98,7 @@ def take_subject(s: str, original: str) -> tuple[str, str | None, str]:
     if word in _SIMPLE_SUBJECTS:
         return word, None, tail
     raise ParseError(
-        f"bad assertion {original!r}: subject must be status, time, body, "
+        f"bad {kind} {original!r}: subject must be status, time, body, "
         "header NAME, len(...) or a $.json.path"
     )
 

@@ -39,7 +39,7 @@ def parse_capture(text: str) -> Capture:
     name = name.strip()
     if not eq or not _NAME.match(name):
         raise ParseError(f"bad capture {text!r}: expected NAME = SUBJECT, e.g. token = $.token")
-    subject, arg, leftover = take_subject(rhs, text)
+    subject, arg, leftover = take_subject(rhs, text, "capture")
     if leftover.strip():
         raise ParseError(f"bad capture {text!r}: unexpected {leftover.strip()!r}")
     return Capture(name, subject, arg, src)
