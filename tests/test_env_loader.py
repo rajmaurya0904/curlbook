@@ -28,12 +28,16 @@ def test_yml_extension(tmp_path: Path) -> None:
 
 
 def test_dotenv_file(tmp_path: Path) -> None:
-    text = "# comment
-TOKEN=abc
-
-export NAME='Raj M'
-"
-    text += 'Q="say ' + chr(92) + '"hi' + chr(92) + '""' + chr(10) + "URL=http://x # trailing" + chr(10)
+    text = "\n".join(
+        [
+            "# comment",
+            "TOKEN=abc",
+            "",
+            "export NAME='Raj M'",
+            r'Q="say \"hi\""',
+            "URL=http://x # trailing",
+        ]
+    )
     env = load_env(write(tmp_path, ".env", text))
     assert env == {"TOKEN": "abc", "NAME": "Raj M", "Q": 'say "hi"', "URL": "http://x"}
 
